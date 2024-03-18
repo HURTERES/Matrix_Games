@@ -35,33 +35,35 @@ namespace MatrixGames
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
             // Выполнить расчет смешанным типом
-            Lblq1.Visible = true;
-            Lblq2.Visible = true;
-            LblV.Location = new Point(21, 368);
+            FormAnswer Frm = new FormAnswer();   
+            Frm.Lblq1.Visible = true;
+            Frm.Lblq2.Visible = true;
+            Frm.LblV.Location = new Point(12, 167);
             double a11 = 0, a12 = 0, a21 = 0, a22 = 0, p1, p2, q1, q2, V;
             a11 = double.Parse(DgvMatrix.Rows[0].Cells[1].Value.ToString());
             a12 = double.Parse(DgvMatrix.Rows[0].Cells[2].Value.ToString());
             a21 = double.Parse(DgvMatrix.Rows[1].Cells[1].Value.ToString());
             a22 = double.Parse(DgvMatrix.Rows[1].Cells[2].Value.ToString());
             p1 = (a22 - a21) / (a11 + a22 - a21 - a12);
-            Lblp1.Text = "p1 = " + Math.Round(p1,3).ToString();
+            Frm.Lblp1.Text = "p1 = " + Math.Round(p1,3).ToString();
             p2 = 1 - p1;
-            Lblp2.Text= "p2 = " + Math.Round(p2,3).ToString();
+            Frm.Lblp2.Text= "p2 = " + Math.Round(p2,3).ToString();
             q1 = (a22-a12) / (a11+a22-a21-a12);
-            Lblq1.Text = "q1 = "+ Math.Round(q1, 3).ToString();
+            Frm.Lblq1.Text = "q1 = "+ Math.Round(q1, 3).ToString();
             q2 = 1 - q1;
-            Lblq2.Text= "q2 = "+ Math.Round(q2, 3).ToString();
+            Frm.Lblq2.Text= "q2 = "+ Math.Round(q2, 3).ToString();
             V = (a11 * a22 - a12 * a21) / (a11+a22-a21-a12);
-            LblV.Text = "V = " + Math.Round(V, 3).ToString();
-
+            Frm.LblV.Text = "V = " + Math.Round(V, 3).ToString();
+            Frm.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             // Выполнить расчет чистым типом
+            FormAnswer Frm = new FormAnswer();
             List<double> LstH = new List<double>();
             List<double> LstV = new List<double>();
-            double a11 = 0, a12 = 0, a21 = 0, a22 = 0,MaxMin=0,MinMax=0, V;
+            double a11 = 0, a12 = 0, a21 = 0, a22 = 0,MaxMin=0,MinMax=0;
             a11 = double.Parse(DgvMatrix.Rows[0].Cells[1].Value.ToString());
             a12 = double.Parse(DgvMatrix.Rows[0].Cells[2].Value.ToString());
             a21 = double.Parse(DgvMatrix.Rows[1].Cells[1].Value.ToString());
@@ -75,15 +77,22 @@ namespace MatrixGames
             MaxMin = Math.Min(LstV[0], LstV[1]);
             MinMax = Math.Max(LstH[0], LstH[1]);
 
-            if (MaxMin == MinMax)
-                LblV.Text = "V = " + MaxMin;
-            else LblV.Text = "V = 0";
+            Frm.Lblp1.Text = "MinMax = " + MinMax;
+            Frm.Lblp2.Text = "MaxMin = " + MaxMin;
+            Frm.Lblq1.Visible = false;
+            Frm.Lblq2.Visible = false;
+            Frm.LblV.Location = new Point(12, 89);
 
-            Lblp1.Text = "MinMax = " + MinMax;
-            Lblp2.Text = "MaxMin = " + MaxMin;
-            Lblq1.Visible = false;
-            Lblq2.Visible = false;
-            LblV.Location = new Point(21, 290);
+            if (MaxMin == MinMax && MaxMin != 0)
+            {
+                Frm.LblV.Text = "V = " + MaxMin;
+                Frm.ShowDialog();
+            }
+            else
+            {
+                Frm.LblV.Text = "V = 0";
+                MessageBox.Show("Игра не решается в чистых стратегиях");
+            }
 
         }
 
