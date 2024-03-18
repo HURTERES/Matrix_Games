@@ -34,6 +34,7 @@ namespace MatrixGames
 
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
+            // Выполнить расчет смешанным типом
             Lblq1.Visible = true;
             Lblq2.Visible = true;
             LblV.Location = new Point(21, 368);
@@ -57,6 +58,7 @@ namespace MatrixGames
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Выполнить расчет чистым типом
             List<double> LstH = new List<double>();
             List<double> LstV = new List<double>();
             double a11 = 0, a12 = 0, a21 = 0, a22 = 0,MaxMin=0,MinMax=0, V;
